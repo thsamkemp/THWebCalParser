@@ -9,13 +9,16 @@ public class formatLines
 {
     public string myLine;
     
+    
     public static void Main(string[] args)
     {
         
     }
 
-    public void ReadString(string theLine)
+    public string ReadString(string theLine)
     {
+        string returnString = "";
+        
         if (theLine.Contains("DT"))
         {
             string cleanLine = theLine.Split(':').Last();
@@ -23,7 +26,7 @@ public class formatLines
             cleanLine = cleanLine.Replace("Z", "");
             //cleanLine = cleanLine.Replace("\r", "");
             cleanLine = cleanLine.Trim(new char[] { '\n', '\r' });
-            FormatDate(cleanLine);
+            returnString = FormatDate(cleanLine);
         }
         else if (theLine.Contains("SUMMARY:"))
         {
@@ -32,13 +35,15 @@ public class formatLines
             cleanLine = cleanLine.Replace("\n", " ");
             cleanLine = cleanLine.Replace("\\", "");
             //cleanLine = cleanLine.Replace("\",  "");
-            Console.WriteLine(cleanLine);
+            //Console.WriteLine(cleanLine);
+            returnString = cleanLine;
         }
         else if (theLine.Contains("UID:"))
         {
             string cleanLine = theLine.Split(':').Last();
             cleanLine = cleanLine.Trim(new char[] { '\n', '\r' });
-            Console.WriteLine(cleanLine);
+            //Console.WriteLine(cleanLine);
+            returnString = cleanLine;
         }
         else if (theLine.Contains("BEGING:"))
         {
@@ -66,26 +71,25 @@ public class formatLines
         }
         else if (theLine.Contains("DESCRIPTION:"))
         {
-            /*
-            string cleanLine = theLine.Split(':').Last();
-            cleanLine = cleanLine.Trim(new char[] { '\n', '\r' });
-            cleanLine = cleanLine.Replace("\n", " ");
-            cleanLine = cleanLine.Replace("\\", "");
-            Console.WriteLine(cleanLine);
-            */
+            //no nothing
         }
         else
         {
             string cleanLine = theLine.Split(':').Last();
             cleanLine = cleanLine.Trim(new char[] { '\n', '\r' });
-            Console.WriteLine(cleanLine);
+            //Console.WriteLine(cleanLine);
+            returnString = cleanLine;
         }
+
+        return returnString;
     }
 
-    public void FormatDate(string dateLine)
+    public string FormatDate(string dateLine)
     {
         CultureInfo cultureInfoProvider = new CultureInfo("en-US");
         DateTime dt = DateTime.ParseExact(dateLine, "yyyyMMddHHmmss", cultureInfoProvider);
-        Console.WriteLine(dt.ToString());
+        //Console.WriteLine(dt.ToString());
+        string x = dt.ToString();
+        return x;
     }
 }
